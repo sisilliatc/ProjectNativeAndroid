@@ -7,6 +7,9 @@ import retrofit2.http.GET;
 
 public interface ApiInterface {
 
-    @GET("random/10-")
+    @GET("random/3-")
     Call<ModelData> getDataList();
+
+    @GET("random/2-")
+    Call<ModelData> addDataList();
 }

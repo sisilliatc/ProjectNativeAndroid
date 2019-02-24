@@ -18,10 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:layout_marginRight="120dp"
+            android:maxLength="50"
             android:textSize="13sp"
             android:padding="30dp"
             android:text="Data List Android"/>
         <TextView
+            android:id="@+id/upText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="16sp"

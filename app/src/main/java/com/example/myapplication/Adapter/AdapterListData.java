@@ -29,9 +29,6 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class AdapterListData extends RecyclerView.Adapter<AdapterListData.MyviewHolder> {
 
-    public final int limit = 5;
-    private PopupWindow mPopupWindow;
-    LinearLayout mLinearLayout;
     List<ModelData> modelDataList;
     Context context;
 

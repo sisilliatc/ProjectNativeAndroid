@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.myapplication.Adapter.AdapterAddData;
 import com.example.myapplication.Adapter.AdapterListData;
 import com.example.myapplication.Model.ModelData;
 import com.example.myapplication.Rest.ApiClient;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recycleDataList, recycleAddData;
     AdapterListData adapterListData;
+    AdapterAddData adapterAddData;
     List<ModelData> modelData;
     TextView addData;
 
@@ -45,13 +47,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        if (recycleAddData != null){
-//            addData.setVisibility(View.GONE);
-//        }else {
-//            addData.setVisibility(View.VISIBLE);
-//        }
-
         loadDataList();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(adapterAddData != null){
+                    adapterAddData.emptyData();
+                    modelData = new ArrayList<ModelData>();
+                }
+            }
+        });
+        swipeRefreshLayout.setRefreshing(false);
 
     }
 
@@ -73,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                     recycleDataList.setNestedScrollingEnabled(false);
                     recycleDataList.setHasFixedSize(true);
                     recycleDataList.setAdapter(adapterListData);
-                    adapterListData.notifyDataSetChanged();
                 }
             }
 
@@ -94,13 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     modelData = new ArrayList<>();
                     modelData = response.body().getValue();
-                    adapterListData = new AdapterListData(modelData, MainActivity.this);
+                    adapterAddData = new AdapterAddData(modelData, MainActivity.this);
                     recycleAddData.setLayoutManager(new LinearLayoutManager(MainActivity.this,
                             LinearLayoutManager.VERTICAL,false));
                     recycleAddData.setNestedScrollingEnabled(false);
                     recycleAddData.setHasFixedSize(true);
-                    recycleAddData.setAdapter(adapterListData);
-                    adapterListData.notifyDataSetChanged();
+                    recycleAddData.setAdapter(adapterAddData);
                 }
 
             }
